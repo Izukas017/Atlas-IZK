@@ -4,123 +4,124 @@
 
 # Atlas
 
-**The file manager at the speed of thought.**
+**El explorador de archivos a la velocidad del pensamiento.**
 
-A native, GPU-accelerated, local-first file manager for Windows. Built with Rust and [GPUI](https://www.gpui.rs/).
+Un explorador de archivos nativo para Windows, acelerado por GPU y que trabaja en local. Hecho con Rust y [GPUI](https://www.gpui.rs/).
 
-[![Website](https://img.shields.io/badge/atlasnative.com-18181B?style=for-the-badge&logo=googlechrome&logoColor=white)](https://atlasnative.com)
-[![Microsoft Store](https://img.shields.io/badge/Get_it_on-Microsoft_Store-0078D4?style=for-the-badge&logo=microsoft&logoColor=white)](https://apps.microsoft.com/detail/9MX95D1GDMR3)
+[![Web](https://img.shields.io/badge/atlasnative.com-18181B?style=for-the-badge&logo=googlechrome&logoColor=white)](https://atlasnative.com)
+[![Microsoft Store](https://img.shields.io/badge/Desc%C3%A1rgalo_en-Microsoft_Store-0078D4?style=for-the-badge&logo=microsoft&logoColor=white)](https://apps.microsoft.com/detail/9MX95D1GDMR3)
 [![Discord](https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/aeAvQ27bgG)
 
-[![License: AGPL-3.0-or-later](https://img.shields.io/badge/License-AGPL--3.0--or--later-blue.svg)](LICENSE)
-[![Built with Rust](https://img.shields.io/badge/Built_with-Rust-orange.svg)](https://www.rust-lang.org/)
-![Status: alpha](https://img.shields.io/badge/status-alpha-ff5a1f.svg)
+[![Licencia: AGPL-3.0-or-later](https://img.shields.io/badge/Licencia-AGPL--3.0--or--later-blue.svg)](LICENSE)
+[![Hecho con Rust](https://img.shields.io/badge/Hecho_con-Rust-orange.svg)](https://www.rust-lang.org/)
+![Estado: alfa](https://img.shields.io/badge/estado-alfa-ff5a1f.svg)
 
 <br>
 
-<img src="docs/images/hero.webp" alt="Atlas grid view with file-type icons" width="860">
+<img src="docs/images/hero.webp" alt="Vista de cuadrícula de Atlas con iconos por tipo de archivo" width="860">
 
 </div>
 
 <br>
 
-## Why Atlas
+## Por qué Atlas
 
-Atlas draws every pixel on the GPU and keeps your files on your machine. Folders open instantly, scrolling stays smooth with very large directories, and everything is reachable from the keyboard.
+Atlas dibuja cada píxel en la GPU y mantiene tus archivos en tu equipo. Las carpetas se abren al instante, el desplazamiento sigue fluido incluso en directorios enormes y todo es accesible desde el teclado.
 
-> **Status:** Atlas is in free alpha on Windows 10/11. Expect rough edges and fast iteration. A Linux build is in development; macOS is on the roadmap.
+> **Estado:** Atlas está en alfa gratuita para Windows 10/11. Espera algunos fallos y cambios rápidos. Hay una versión para Linux en desarrollo; macOS está en la hoja de ruta.
 
-## Features
+## Funciones
 
-- **Five views** — Grid, List, Details, Miller columns and Tree, chosen per pane.
-- **Tabs and split panes** — split in any direction, drag and drop between panes, reopen closed tabs.
-- **Command palette** — `Ctrl+Shift+P` runs any command; `Ctrl+K` jumps to any folder with fuzzy search.
-- **Instant search** — an indexed, fuzzy search that finds files as you type.
-- **Preview** — press `Space` to preview images, video, audio, documents, code and archives.
-- **Local conversion** — convert images, video, audio and documents from the context menu or a radial picker. Files never leave your PC.
-- **Archives as folders** — browse ZIP, RAR, 7z and TAR without extracting.
-- **Searchable context menu** — your own actions and the native Windows shell menu in one overlay.
-- **Tags, filters and profiles** — color tags, saved layouts and per-profile favorites.
-- **Private folders** — password-protected folders.
-- **Disk cleanup** — find what is using space and clean it safely.
-- **Cloud and network** — Google Drive, OneDrive and other providers via rclone, plus SMB, FTP and WebDAV, right in the sidebar.
-- **Extensions** — optional first-party extensions (icon themes, thumbnails, Pandoc, Opus, cloud drives, document previews).
-- **Themes and icon packs** — including VS Code icon themes.
+- **Cinco vistas**: cuadrícula, lista, detalles, columnas Miller y árbol, elegidas por panel.
+- **Pestañas y paneles divididos**: divide en cualquier dirección, arrastra y suelta entre paneles y reabre pestañas cerradas.
+- **Paleta de comandos**: `Ctrl+Shift+P` ejecuta cualquier comando; `Ctrl+K` salta a cualquier carpeta con búsqueda difusa.
+- **Búsqueda instantánea**: búsqueda indexada y difusa que encuentra archivos mientras escribes.
+- **Vista previa**: pulsa `Espacio` para previsualizar imágenes, vídeo, audio, documentos, código y archivos comprimidos.
+- **Conversión local**: convierte imágenes, vídeo, audio y documentos desde el menú contextual o un selector radial. Los archivos nunca salen de tu PC.
+- **Comprimidos como carpetas**: navega por ZIP, RAR, 7z y TAR sin extraerlos.
+- **Menú contextual con buscador**: tus propias acciones y el menú nativo de Windows en una sola ventana.
+- **Etiquetas, filtros y perfiles**: etiquetas de color, diseños guardados y favoritos por perfil.
+- **Carpetas privadas**: carpetas protegidas con contraseña.
+- **Limpieza de disco**: descubre qué ocupa espacio y libéralo de forma segura.
+- **Nube y red**: Google Drive, OneDrive y otros proveedores mediante rclone, además de SMB, FTP y WebDAV, directamente en la barra lateral.
+- **Extensiones**: extensiones oficiales opcionales (temas de iconos, miniaturas, Pandoc, Opus, unidades en la nube, vista previa de documentos).
+- **Temas y packs de iconos**: incluidos los temas de iconos de VS Code.
 
 <div align="center">
-<img src="docs/images/miller.webp" alt="Miller columns with a live preview pane" width="860">
-<br><sub>Miller columns with a live preview.</sub>
+<img src="docs/images/miller.webp" alt="Columnas Miller con panel de vista previa" width="860">
+<br><sub>Columnas Miller con vista previa en directo.</sub>
 <br><br>
-<img src="docs/images/convert.webp" alt="Radial format picker for local conversion" width="860">
-<br><sub>Convert files locally from a radial format picker.</sub>
+<img src="docs/images/convert.webp" alt="Selector radial de formato para la conversión local" width="860">
+<br><sub>Convierte archivos en local desde un selector radial de formatos.</sub>
 <br><br>
-<img src="docs/images/grid.webp" alt="Grid view with tabs" width="860">
-<br><sub>Tabs, breadcrumbs and a grid with real file-type icons.</sub>
+<img src="docs/images/grid.webp" alt="Vista de cuadrícula con pestañas" width="860">
+<br><sub>Pestañas, ruta de navegación y cuadrícula con iconos reales por tipo de archivo.</sub>
 </div>
 
-## Install
+## Instalación
 
-- **Microsoft Store (recommended):** [Atlas on the Microsoft Store](https://apps.microsoft.com/detail/9MX95D1GDMR3). Free to install; updates are automatic.
-- **Website:** [atlasnative.com](https://atlasnative.com) has the latest news, the changelog and the Linux waitlist.
+- **Esta versión (IZK):** descarga `AtlasSetup-0.1.0.exe` desde la [release v0.1](https://github.com/Izukas017/Atlas-IZK/releases/tag/v0.1). Es la edición Full compilada desde el código fuente; requiere permisos de administrador.
+- **Microsoft Store:** [Atlas en la Microsoft Store](https://apps.microsoft.com/detail/9MX95D1GDMR3). Gratis; las actualizaciones son automáticas.
+- **Web:** [atlasnative.com](https://atlasnative.com) tiene las últimas novedades, el registro de cambios y la lista de espera de Linux.
 
-Atlas is free to use. An optional one-time Premium license unlocks higher limits (more panes, profiles, cloud connections, conversions and batch rename); see [atlasnative.com](https://atlasnative.com/#pricing).
+Atlas es de uso gratuito. Una licencia Premium opcional de pago único amplía los límites (más paneles, perfiles, conexiones en la nube, conversiones y renombrado por lotes); consulta [atlasnative.com](https://atlasnative.com/#pricing).
 
-## Keyboard shortcuts
+## Atajos de teclado
 
-Shortcuts can be remapped in Settings.
+Los atajos se pueden cambiar en Ajustes.
 
-| Shortcut | Action |
+| Atajo | Acción |
 |---|---|
-| `Ctrl+Shift+P` | Command palette |
-| `Ctrl+K` | Go to folder |
-| `Ctrl+T` / `Ctrl+W` / `Ctrl+Shift+T` | New / close / reopen tab |
-| `Ctrl+Tab`, `Ctrl+1`–`9` | Switch tab |
-| `Ctrl+Shift+S` / `Ctrl+Alt+S` | Split horizontally / vertically |
-| `F6`, `Ctrl+Alt+←→↑↓` | Move between panes |
-| `Alt+←` / `Alt+→` / `Alt+↑` | Back / forward / up |
-| `Ctrl+F`, `Ctrl+Shift+F` | Search, search in subfolders |
-| `Space`, `Ctrl+I` | Preview / inspector |
-| `F2` | Rename |
-| `Ctrl+Z` / `Ctrl+Shift+Z` | Undo / redo |
-| `Ctrl+Alt+C` | Convert |
-| `Ctrl+,` | Settings |
+| `Ctrl+Shift+P` | Paleta de comandos |
+| `Ctrl+K` | Ir a carpeta |
+| `Ctrl+T` / `Ctrl+W` / `Ctrl+Shift+T` | Nueva / cerrar / reabrir pestaña |
+| `Ctrl+Tab`, `Ctrl+1`–`9` | Cambiar de pestaña |
+| `Ctrl+Shift+S` / `Ctrl+Alt+S` | Dividir en horizontal / vertical |
+| `F6`, `Ctrl+Alt+←→↑↓` | Moverse entre paneles |
+| `Alt+←` / `Alt+→` / `Alt+↑` | Atrás / adelante / subir |
+| `Ctrl+F`, `Ctrl+Shift+F` | Buscar, buscar en subcarpetas |
+| `Espacio`, `Ctrl+I` | Vista previa / inspector |
+| `F2` | Renombrar |
+| `Ctrl+Z` / `Ctrl+Shift+Z` | Deshacer / rehacer |
+| `Ctrl+Alt+C` | Convertir |
+| `Ctrl+,` | Ajustes |
 
-## Build from source
+## Compilar desde el código fuente
 
-Requirements: Windows 10/11, the MSVC build tools (Visual Studio Build Tools with the Windows SDK) and [Rust](https://rustup.rs/). The repository pins the toolchain in [`rust-toolchain.toml`](rust-toolchain.toml), so `cargo` picks the right version automatically.
+Requisitos: Windows 10/11, las herramientas de compilación de MSVC (Visual Studio Build Tools con el SDK de Windows) y [Rust](https://rustup.rs/). El repositorio fija la versión de la toolchain en [`rust-toolchain.toml`](rust-toolchain.toml), así que `cargo` elige la versión correcta automáticamente.
 
 ```powershell
 git clone https://github.com/neondeex/atlas-filemanager.git
 cd atlas-filemanager
 
-cargo run --release          # run Atlas
-cargo check --workspace      # type-check everything
-cargo test --workspace       # run the tests
+cargo run --release          # ejecutar Atlas
+cargo check --workspace      # comprobar tipos de todo
+cargo test --workspace       # ejecutar los tests
 ```
 
-The first build compiles GPUI and takes a while. Useful aliases live in [`.cargo/config.toml`](.cargo/config.toml). To try the opt-in Free limits, see [Build editions](docs/build-editions.md).
+La primera compilación compila GPUI y tarda un rato. Hay alias útiles en [`.cargo/config.toml`](.cargo/config.toml). Para probar los límites opcionales de la edición Free, consulta [Ediciones de compilación](docs/build-editions.md).
 
-## Project layout
+## Estructura del proyecto
 
-| Path | What it holds |
+| Ruta | Qué contiene |
 |---|---|
-| `crates/atlas-model` | Shared data types and application state |
-| `crates/atlas-core` | File system, search, preview, conversion, archives, cloud |
-| `crates/atlas-ui` | The GPUI application: views, overlays, input, drag and drop |
-| `crates/atlas-win-space` | Windows disk-space and cleanup engine |
-| `crates/atlas-search-service` | Background search index service |
-| `extensions/` | First-party declarative and sidecar extensions |
-| `vendor/` | Patched forks of GPUI and gpui-component (Apache-2.0) |
-| `docs/` | Guides for contributors and extension authors |
+| `crates/atlas-model` | Tipos de datos compartidos y estado de la aplicación |
+| `crates/atlas-core` | Sistema de archivos, búsqueda, vista previa, conversión, comprimidos, nube |
+| `crates/atlas-ui` | La aplicación GPUI: vistas, ventanas superpuestas, entrada, arrastrar y soltar |
+| `crates/atlas-win-space` | Motor de espacio en disco y limpieza para Windows |
+| `crates/atlas-search-service` | Servicio de índice de búsqueda en segundo plano |
+| `extensions/` | Extensiones oficiales declarativas y sidecar |
+| `vendor/` | Forks parcheados de GPUI y gpui-component (Apache-2.0) |
+| `docs/` | Guías para colaboradores y autores de extensiones |
 
-Read [ARCHITECTURE.md](ARCHITECTURE.md) for the dependency rules and [docs/extensions.md](docs/extensions.md) to write an extension.
+Lee [ARCHITECTURE.md](ARCHITECTURE.md) para conocer las reglas de dependencias y [docs/extensions.md](docs/extensions.md) para escribir una extensión.
 
-## Contributing
+## Contribuir
 
-Bug reports, ideas and pull requests are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) first, open an [issue](https://github.com/neondeex/atlas-filemanager/issues) to discuss larger changes, and join the [Discord](https://discord.gg/aeAvQ27bgG) to talk to the developers. To report a vulnerability, see [SECURITY.md](SECURITY.md).
+Los informes de errores, ideas y pull requests son bienvenidos. Lee primero [CONTRIBUTING.md](CONTRIBUTING.md), abre un [issue](https://github.com/neondeex/atlas-filemanager/issues) para comentar cambios grandes y únete al [Discord](https://discord.gg/aeAvQ27bgG) para hablar con los desarrolladores. Para informar de una vulnerabilidad, consulta [SECURITY.md](SECURITY.md).
 
-## License
+## Licencia
 
-Atlas is licensed under the [GNU AGPL v3.0 or later](LICENSE). Third-party components keep their own licenses; see [NOTICE](NOTICE) and [`legal/THIRD-PARTY-NOTICES.txt`](legal/THIRD-PARTY-NOTICES.txt).
+Atlas tiene licencia [GNU AGPL v3.0 o posterior](LICENSE). Los componentes de terceros mantienen sus propias licencias; consulta [NOTICE](NOTICE) y [`legal/THIRD-PARTY-NOTICES.txt`](legal/THIRD-PARTY-NOTICES.txt).
 
-The Atlas name and logo are not covered by the AGPL license.
+El nombre y el logo de Atlas no están cubiertos por la licencia AGPL.
