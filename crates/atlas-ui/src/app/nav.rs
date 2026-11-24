@@ -466,6 +466,7 @@ impl App {
             Location::RecycleBin => {
                 self.spawn_list_recycle_bin(tab_id, col, dir);
             }
+            Location::ThisPc => self.spawn_list_this_pc(tab_id),
             #[cfg(feature = "provider-host")]
             Location::Remote { id, path } => {
                 self.spawn_list_remote(tab_id, id, path);

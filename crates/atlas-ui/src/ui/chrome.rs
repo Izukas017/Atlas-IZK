@@ -430,6 +430,7 @@ impl App {
                 .def(*id)
                 .map_or_else(|| location_label(location), |def| def.name.clone().into()),
             Location::RecycleBin => rust_i18n::t!("sidebar_recycle_bin").into_owned().into(),
+            Location::ThisPc => rust_i18n::t!("sidebar_this_pc").into_owned().into(),
             _ => location_label(location),
         }
     }
@@ -1563,6 +1564,7 @@ fn location_icon(location: &Location) -> AtlasIcon {
         Location::Archive { .. } => AtlasIcon::File,
         Location::Tag(_) => AtlasIcon::Tag,
         Location::RecycleBin => AtlasIcon::Trash,
+        Location::ThisPc => AtlasIcon::Monitor,
         #[cfg(feature = "provider-host")]
         Location::Remote { .. } => AtlasIcon::Cloud,
     }
@@ -1579,7 +1581,9 @@ fn location_label(location: &Location) -> SharedString {
                 format!("{} › {}", archive.display(), inner.display()).into()
             }
         }
-        Location::Tag(_) | Location::RecycleBin => display.display().to_string().into(),
+        Location::Tag(_) | Location::RecycleBin | Location::ThisPc => {
+            display.display().to_string().into()
+        }
         #[cfg(feature = "provider-host")]
         Location::Remote { .. } => display.display().to_string().into(),
     }

@@ -158,6 +158,13 @@ impl App {
                 }
             }
         }
+        // Plain launch: always open on "This PC".
+        if initial_paths.is_empty() && !importing_tab {
+            if let Some(Tile::Pane(tab)) = state.pane_tree.tiles.get_mut(state.focused_tile) {
+                tab.location = atlas_model::location::Location::ThisPc;
+                tab.volume_serial = None;
+            }
+        }
         #[cfg(windows)]
         let mut pending_tab_restore = None;
         #[allow(unused_mut)]
@@ -301,6 +308,30 @@ impl App {
                         },
                     };
                     let _ = tx_clone.send(send_result);
+                });
+                continue;
+            }
+            // "This PC" has no directory to list; build its rows directly.
+            if matches!(location, atlas_model::location::Location::ThisPc) {
+                let bookmarks = state
+                    .profiles
+                    .active()
+                    .bookmarks
+                    .iter()
+                    .map(|b| (b.name.clone(), b.path.clone()))
+                    .collect();
+                let op_id = state.next_op_id();
+                let ts = state.tab_states.entry(tile_id).or_default();
+                ts.load_state = LoadState::Loading;
+                ts.last_nav_op_id = op_id;
+                let tx_clone = tx.clone();
+                rt.spawn(async move {
+                    let entries = super::fs_sync::this_pc_entries(bookmarks).await;
+                    let _ = tx_clone.send(BgResult::DirListed {
+                        tab: tile_id,
+                        op_id,
+                        entries,
+                    });
                 });
                 continue;
             }

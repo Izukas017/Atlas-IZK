@@ -47,6 +47,57 @@ mod exclusion_tests {
     }
 }
 
+/// Rows for the "This PC" view: one per mounted drive, then one per bookmark.
+pub(crate) async fn this_pc_entries(
+    bookmarks: Vec<(String, PathBuf)>,
+) -> Vec<atlas_model::file_entry::FileEntry> {
+    use atlas_model::file_entry::{FileEntry, FileEntryData, FileKind};
+    tokio::task::spawn_blocking(move || {
+        let row = |name: &str, path: PathBuf, kind: FileKind, size: Option<u64>| {
+            FileEntry::from(FileEntryData {
+                name: name.into(),
+                path,
+                kind,
+                size,
+                modified: None,
+                _is_hidden: false,
+                _is_symlink: false,
+                archive_root: None,
+                recycle_info: None,
+            })
+        };
+        let mut entries: Vec<FileEntry> = atlas_core::fs::mounts::list_drives()
+            .into_iter()
+            .map(|d| {
+                let mount = d.mount_point.display().to_string();
+                let root = mount.trim_end_matches(['\\', '/']);
+                let name = if d.label.is_empty() || d.label == mount || d.label == root {
+                    mount.clone()
+                } else {
+                    format!("{} ({root})", d.label)
+                };
+                row(
+                    &name,
+                    d.mount_point,
+                    FileKind::Dir,
+                    (d.total_bytes > 0).then_some(d.total_bytes),
+                )
+            })
+            .collect();
+        entries.extend(bookmarks.into_iter().map(|(name, path)| {
+            let kind = if path.is_dir() {
+                FileKind::Dir
+            } else {
+                FileKind::File
+            };
+            row(&name, path, kind, None)
+        }));
+        entries
+    })
+    .await
+    .unwrap_or_default()
+}
+
 impl App {
     /// Read created/accessed stamps for a pane grouped by those dates. The
     /// compact entry only keeps its modification time, and a stat per file must
@@ -973,6 +1024,31 @@ impl App {
         self.rt.spawn(async move {
             let entries = atlas_core::fs::recycle_bin::list_recycle_bin(sort_col, sort_dir).await;
 
+            let _ = tx.send(BgResult::DirListed {
+                tab: tab_id,
+                op_id,
+                entries,
+            });
+        });
+    }
+
+    /// "This PC": the drives, then the active profile's bookmarks.
+    pub(crate) fn spawn_list_this_pc(&mut self, tab_id: TileId) {
+        let op_id = self.state.next_op_id();
+        let ts = self.state.tab_states.entry(tab_id).or_default();
+        ts.load_state = LoadState::Loading;
+        ts.last_nav_op_id = op_id;
+        let bookmarks = self
+            .state
+            .profiles
+            .active()
+            .bookmarks
+            .iter()
+            .map(|b| (b.name.clone(), b.path.clone()))
+            .collect();
+        let tx = self.tx.clone();
+        self.rt.spawn(async move {
+            let entries = this_pc_entries(bookmarks).await;
             let _ = tx.send(BgResult::DirListed {
                 tab: tab_id,
                 op_id,

@@ -2455,6 +2455,16 @@ fn render_collapsed_sections(
                         col = col.child(collapsed_divider());
                     }
                 }
+                col = col.child(collapsed_virtual_nav_row(
+                    SharedString::from("rail-place-this-pc"),
+                    rust_i18n::t!("sidebar_this_pc").to_string(),
+                    "monitor",
+                    Location::ThisPc,
+                    None,
+                    app,
+                    style,
+                    matches!(current_location, Some(Location::ThisPc)),
+                ));
                 for (icon_name, label, path) in places {
                     let active = current.is_some_and(|c| c == path.as_path());
                     let shell_tex = sidebar_shell_tex(app, &path, windows_theme, cx);
@@ -2908,10 +2918,17 @@ fn collapsed_virtual_nav_row(
             });
         })
         .context_menu(move |menu, _window, _cx| {
-            menu.menu(
-                rust_i18n::t!("cmd_recycle_empty_title"),
-                Box::new(SidebarEmptyRecycleBin),
-            )
+            if request_recycle_icon {
+                menu.menu(
+                    rust_i18n::t!("cmd_recycle_empty_title"),
+                    Box::new(SidebarEmptyRecycleBin),
+                )
+            } else {
+                menu.menu(
+                    rust_i18n::t!("root_properties"),
+                    Box::new(OpenThisPcProperties),
+                )
+            }
         })
 }
 
@@ -3334,6 +3351,16 @@ fn render_section_body(
             .into_iter()
             .filter_map(|(icon, label, p)| p.map(|p| (icon, label, p)))
             .collect();
+            col = col.child(virtual_nav_row(
+                SharedString::from("place-this-pc"),
+                rust_i18n::t!("sidebar_this_pc").to_string(),
+                "monitor",
+                Location::ThisPc,
+                None,
+                app,
+                style,
+                matches!(current_location, Some(Location::ThisPc)),
+            ));
             for (icon, label, path) in places {
                 let active = current.is_some_and(|c| c == path.as_path());
                 let shell_tex = sidebar_shell_tex(app, &path, windows_theme, cx);
@@ -4646,10 +4673,17 @@ fn virtual_nav_row(
             });
         })
         .context_menu(move |menu, _window, _cx| {
-            menu.menu(
-                rust_i18n::t!("cmd_recycle_empty_title"),
-                Box::new(SidebarEmptyRecycleBin),
-            )
+            if request_recycle_icon {
+                menu.menu(
+                    rust_i18n::t!("cmd_recycle_empty_title"),
+                    Box::new(SidebarEmptyRecycleBin),
+                )
+            } else {
+                menu.menu(
+                    rust_i18n::t!("root_properties"),
+                    Box::new(OpenThisPcProperties),
+                )
+            }
         })
 }
 

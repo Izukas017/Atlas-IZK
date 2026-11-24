@@ -57,6 +57,7 @@ pub(crate) enum DragHoverDropCommand {
     /// Send the dropped paths to the OS trash (drop on the Recycle Bin).
     TrashPaths,
     RejectArchive,
+    RejectThisPc,
 }
 
 #[cfg(windows)]
@@ -939,6 +940,9 @@ impl App {
             DragHoverDropCommand::RejectArchive => {
                 self.toast_error(rust_i18n::t!("dnd_archive_drop_blocked").into_owned());
             }
+            DragHoverDropCommand::RejectThisPc => {
+                self.toast_error(rust_i18n::t!("dnd_this_pc_drop_blocked").into_owned());
+            }
         }
         // Staged references are consumed by completion, never by submission.
         self.cancel_dropzone_file_drag();
@@ -1431,7 +1435,9 @@ fn drop_intent(
             DropIntent::Bookmark
         }
         DragHoverDropCommand::StageInSidebar => DropIntent::Stage,
-        DragHoverDropCommand::RejectArchive => DropIntent::Blocked,
+        DragHoverDropCommand::RejectArchive | DragHoverDropCommand::RejectThisPc => {
+            DropIntent::Blocked
+        }
     }
 }
 
@@ -1458,6 +1464,7 @@ pub(crate) fn location_drop_command(location: &Location) -> DragHoverDropCommand
         Location::Tag(tag) => DragHoverDropCommand::AssignTag(*tag),
         Location::RecycleBin => DragHoverDropCommand::TrashPaths,
         Location::Archive { .. } => DragHoverDropCommand::RejectArchive,
+        Location::ThisPc => DragHoverDropCommand::RejectThisPc,
         #[cfg(feature = "provider-host")]
         Location::Remote { id, path } => {
             DragHoverDropCommand::TransferTo(crate::app::cloud::remote_sentinel(id, path))

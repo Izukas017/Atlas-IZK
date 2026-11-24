@@ -10,6 +10,8 @@ pub enum Location {
     },
     Tag(TagId),
     RecycleBin,
+    /// Virtual "This PC": one row per mounted drive.
+    ThisPc,
     #[cfg(feature = "provider-host")]
     Remote {
         id: String,
@@ -40,6 +42,7 @@ impl Location {
             }
             Self::Tag(id) => PathBuf::from(format!("tag:{}", id.0)),
             Self::RecycleBin => PathBuf::from("Recycle Bin"),
+            Self::ThisPc => PathBuf::from("This PC"),
             #[cfg(feature = "provider-host")]
             Self::Remote { id, path } => {
                 PathBuf::from(format!("{id}:{}", crate::remote_path::display(path)))
@@ -85,7 +88,7 @@ impl Location {
                     })
                 }
             }
-            Self::Tag(_) | Self::RecycleBin => None,
+            Self::Tag(_) | Self::RecycleBin | Self::ThisPc => None,
             #[cfg(feature = "provider-host")]
             Self::Remote { id, path } => {
                 let trimmed = path.trim_matches('/');
