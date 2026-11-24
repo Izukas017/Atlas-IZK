@@ -190,6 +190,10 @@ pub struct OpenThisPcProperties;
 
 #[derive(gpui::Action, Clone, PartialEq, Eq, serde::Deserialize)]
 #[action(namespace = atlas, no_json)]
+pub struct SidebarEmptyRecycleBin;
+
+#[derive(gpui::Action, Clone, PartialEq, Eq, serde::Deserialize)]
+#[action(namespace = atlas, no_json)]
 pub struct SidebarDeleteTag {
     pub tag: atlas_model::tag_cache::TagId,
 }

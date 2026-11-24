@@ -23,7 +23,7 @@ use crate::ui::sidebar_ink::{icon_or_texture, RowIcon, RowInk};
 use crate::InstallWinFspForRemote;
 use crate::{
     OpenPropertiesForPath, OpenSpaceLensForPath, OpenThisPcProperties, SidebarDeleteTag,
-    SidebarHideSection, SidebarMoveSectionDown, SidebarMoveSectionUp, SidebarNewGlobalTag,
+    SidebarEmptyRecycleBin, SidebarHideSection, SidebarMoveSectionDown, SidebarMoveSectionUp, SidebarNewGlobalTag,
     SidebarNewProfileTag, SidebarRemoveBookmark, SidebarRenameTag, SidebarResetSections,
     SidebarToggleSection,
 };
@@ -1463,6 +1463,16 @@ impl Render for SidebarPanel {
                 cx.listener(|_this, _: &OpenThisPcProperties, _window, _cx| {
                     crate::ui::shell_context_menu::show_this_pc_properties();
                 }),
+            )
+            .on_action(
+                cx.listener(|this, _: &SidebarEmptyRecycleBin, _window, cx| {
+                    if let Some(app) = this.app.upgrade() {
+                        app.update(cx, |app, cx| {
+                            app.process_actions(vec![Action::EmptyRecycleBin]);
+                            cx.notify();
+                        });
+                    }
+                }),
             );
         #[cfg(feature = "provider-host")]
         {
@@ -2896,6 +2906,12 @@ fn collapsed_virtual_nav_row(
                 this.navigate_to(tile, loc, NavKind::Push);
                 cx.notify();
             });
+        })
+        .context_menu(move |menu, _window, _cx| {
+            menu.menu(
+                rust_i18n::t!("cmd_recycle_empty_title"),
+                Box::new(SidebarEmptyRecycleBin),
+            )
         })
 }
 
@@ -4628,6 +4644,12 @@ fn virtual_nav_row(
                 this.navigate_to(tile, loc, NavKind::Push);
                 cx.notify();
             });
+        })
+        .context_menu(move |menu, _window, _cx| {
+            menu.menu(
+                rust_i18n::t!("cmd_recycle_empty_title"),
+                Box::new(SidebarEmptyRecycleBin),
+            )
         })
 }
 
